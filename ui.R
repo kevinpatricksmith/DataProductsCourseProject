@@ -1,0 +1,73 @@
+library(shiny)
+shinyUI(pageWithSidebar(
+  headerPanel("Sensitivity, Specificity and Accuracy"),
+  sidebarPanel(
+     HTML('<table><tr><td>'),
+     numericInput('tp_dp', 'Test +, Disease +', 99, min = 0, max = 1000000, step = 1),
+     HTML('</td><td>'),
+     numericInput('tp_dn', 'Test +, Disease -', 999, min = 0, max = 1000000, step = 1),
+     HTML('</td></tr><tr><td>'),     
+     numericInput('tn_dp', 'Test -, Disease +', 1, min = 0, max = 1000000, step = 1),
+     HTML('</td><td>'),
+     numericInput('tn_dn', 'Test -, Disease -', 98901, min = 0, max = 1000000, step = 1),
+     HTML('</td></tr></table>')
+  ),
+  
+  mainPanel(
+      tabsetPanel(
+          tabPanel("Home", 
+                   h3('Accuracy %'),
+                   verbatimTextOutput("Accuracy"),
+                   h3('Sensitivity %'),
+                   verbatimTextOutput("Sensitivity"),
+                   h3('Specificity %'),
+                   verbatimTextOutput("Specificity"),
+                   h3('Prevalence In Population %'),
+                   verbatimTextOutput("PrevalenceInPop")
+                ), 
+          tabPanel("Documentation", 
+                   h3("Summary"),
+                   "This application helps allows you to experiment with Accuracy, Sensitivity and Specificity calculations.",
+                   br(), br(),
+                   "This is based on the lecture Types of Errors in Week 1 of the Predictive Machine Learning Data Science Course.",
+                   br(),
+                   br(),
+                   h3("Definitions"),
+                   "Test +, Disease +: Set the number of patients who had a positive test and were in fact positive for the disease.",
+                    br(),
+                  "Test -, Disease +: Set the number of patients who had a negative test but were in fact positive for the disease.",
+                  br(),
+                  "Test +, Disease -: Set the number of patients who had a positive test but were in fact negative for the disease.",
+                  br(),
+                  "Test -, Disease -: Set the number of patients who had a negative test and were in fact negative for the disease.",
+                  br() ,
+                  br(),
+                  h3("Examples"), 
+                  br(),
+                  "Set the following values to see how a 10% prevalance in the population affects these measures",
+                  br(),
+                  "Test +, Disease + = 9900",
+                  br(),
+                  "Test +, Disease - = 900",
+                  br(),
+                  "Test -, Disease + = 100",
+                  br(),
+                  "Test -, Disease - = 89100",
+                  br(),
+                  br(),
+                  "Set the following values to see how a 0.1% prevalance in the population affects these measures", br(),
+                  "Test +, Disease + = 99",
+                  br(),
+                  "Test +, Disease - = 999",
+                  br(),
+                  "Test -, Disease + = 1",
+                  br(),
+                  "Test -, Disease - = 98901",
+                  br()
+           ),          
+          tabPanel("Git hub", 
+                   "ui.R and Server.R are here in github:",br(),
+                   
+          )
+  ))
+)
